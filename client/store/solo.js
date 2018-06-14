@@ -3,6 +3,7 @@ import axios from 'axios'
 const GET_GUITARISTS = 'GET_GUITARISTS'
 const GET_SONGS = 'GET_SONGS'
 const TOGGLE_FETCH = 'TOGGLE_FETCH'
+const CHANGE_VIEW = 'CHANGE_VIEW'
 
 /*
   action creators
@@ -20,9 +21,16 @@ const getSongsAction = songs => {
     songs
   }
 }
-const toggleFetchAction = () => {
+const setFetchAction = fetching => {
   return {
-    type: TOGGLE_FETCH
+    type: TOGGLE_FETCH,
+    fetching
+  }
+}
+export const setViewAction = view => {
+  return {
+    type: CHANGE_VIEW,
+    view
   }
 }
 
@@ -32,9 +40,19 @@ const toggleFetchAction = () => {
 
 export const getGuitaristsThunk = () => {
   return dispatch => {
+    dispatch(setFetchAction(true))
     axios.get('/api/guitarists').then(res => {
       dispatch(getGuitaristsAction(res.data))
-      dispatch(toggleFetchAction())
+      dispatch(setFetchAction(false))
+    })
+  }
+}
+export const getSongsThunk = searchParams => {
+  return dispatch => {
+    dispatch(setFetchAction(true))
+    axios.get('/api/songs', searchParams).then(res => {
+      dispatch(getSongsAction(res.data))
+      dispatch(setFetchAction(false))
     })
   }
 }
@@ -42,6 +60,7 @@ export const getGuitaristsThunk = () => {
 const initialState = {
   guitarists: [],
   songs: [],
+  results: false,
   isFetching: true
 }
 
@@ -51,8 +70,10 @@ export default function(state = initialState, action) {
       return {...state, guitarists: action.guitarists}
     case GET_SONGS:
       return {...state, songs: action.songs}
+    case CHANGE_VIEW:
+      return {...state, results: action.view}
     case TOGGLE_FETCH:
-      return {...state, isFetching: false}
+      return {...state, isFetching: action.fetching}
     default:
       return state
   }

@@ -1,21 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getGuitaristsThunk} from '../store/solo'
-import {Button, Form, Dropdown, Container} from 'semantic-ui-react'
-import './SearchParams.css'
+import {getGuitaristsThunk, getSongsThunk, setViewAction} from '../store/solo'
+import {Button, Form, Dropdown, Container, Segment} from 'semantic-ui-react'
 import SearchResults from './SearchResults'
+import './SearchParams.css'
 
 class SearchParams extends React.Component {
   componentDidMount() {
-    // call thunk
+    this.props.fetchGuitarists()
   }
   handleSubmit = event => {
     event.preventDefault()
+    this.props.querySongs()
+    this.props.setView(true)
   }
-  render() {
-    // a form to search for videos
-    const {guitarists} = this.props
-    const guitaristOptions = guitarists.map(guitarist => {
+  generateGuitaristOptions(guitarists) {
+    return guitarists.map(guitarist => {
       return {
         key: guitarist.id,
         value: guitarist.id,
@@ -23,17 +23,23 @@ class SearchParams extends React.Component {
         text: guitarist.name
       }
     })
-    const difficultyOptions = [
+  }
+  generateDifficultyOptions() {
+    return [
       {key: 'easy', value: 'easy', text: 'Easy'},
       {key: 'intermediate', value: 'intermediate', text: 'Intermediate'},
       {key: 'hard', value: 'hard', text: 'Hard'}
     ]
-    const speedOptions = [
+  }
+  generateSpeedOptions() {
+    return [
       {key: 'slow', value: 'slow', text: 'Slow'},
       {key: 'medium', value: 'medium', text: 'Medium'},
       {key: 'fast', value: 'fast', text: 'Fast'}
     ]
-    const styleOptions = [
+  }
+  generateStyleOptions() {
+    return [
       {key: 'bluesy', value: 'Bluesy', text: 'Bluesy'},
       {key: 'Heavy Metal', value: 'Heavy Metal', text: 'Heavy Metal'},
       {key: 'Jazz', value: 'Jazz', text: 'Jazz'},
@@ -41,10 +47,19 @@ class SearchParams extends React.Component {
       {key: 'Melodic', value: 'Melodic', text: 'Melodic'},
       {key: 'Bluegrass', value: 'Bluegrass', text: 'Bluegrass'}
     ]
+  }
+  render() {
+    // a form to search for videos
+    const {guitarists, isFetching, results} = this.props
+    const guitaristOptions = this.generateGuitaristOptions(guitarists)
+    const difficultyOptions = this.generateDifficultyOptions()
+    const speedOptions = this.generateSpeedOptions()
+    const styleOptions = this.generateStyleOptions()
+    if (isFetching) return <Segment>LOADING...</Segment>
     return (
       <div>
         <Container>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <label className="label-dropdown">Guitar Player</label>
             <Dropdown
               placeholder="Choose a guitar player"
@@ -89,6 +104,7 @@ class SearchParams extends React.Component {
               Find Solos
             </Button>
           </Form>
+          {results && <SearchResults />}
         </Container>
       </div>
     )
@@ -97,12 +113,18 @@ class SearchParams extends React.Component {
 
 const mapState = state => {
   return {
-    guitarists: state.solo.guitarists
+    guitarists: state.solo.guitarists,
+    isFetching: state.solo.isFetching,
+    results: state.solo.results
   }
 }
 const mapDispatch = dispatch => {
   return {
-    fetchGuitarists: () => dispatch(getGuitaristsThunk())
+    fetchGuitarists: () => dispatch(getGuitaristsThunk()),
+    querySongs: searchParams => {
+      return dispatch(getSongsThunk(searchParams))
+    },
+    setView: view => dispatch(setViewAction(view))
   }
 }
 
