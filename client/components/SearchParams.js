@@ -1,27 +1,20 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {getGuitaristsThunk} from '../store/solo'
 import {Button, Form, Dropdown, Container} from 'semantic-ui-react'
-import axios from 'axios'
 import './SearchParams.css'
 import SearchResults from './SearchResults'
 
 class SearchParams extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      guitarists: []
-    }
-  }
   componentDidMount() {
-    axios
-      .get('/api/guitarists')
-      .then(res => this.setState({guitarists: res.data}))
+    // call thunk
   }
   handleSubmit = event => {
     event.preventDefault()
   }
   render() {
     // a form to search for videos
-    const {guitarists} = this.state
+    const {guitarists} = this.props
     const guitaristOptions = guitarists.map(guitarist => {
       return {
         key: guitarist.id,
@@ -97,10 +90,20 @@ class SearchParams extends React.Component {
             </Button>
           </Form>
         </Container>
-        <SearchResults />
       </div>
     )
   }
 }
 
-export default SearchParams
+const mapState = state => {
+  return {
+    guitarists: state.solo.guitarists
+  }
+}
+const mapDispatch = dispatch => {
+  return {
+    fetchGuitarists: () => dispatch(getGuitaristsThunk())
+  }
+}
+
+export default connect(mapState, mapDispatch)(SearchParams)
