@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Form, Dropdown, Container} from 'semantic-ui-react'
 import axios from 'axios'
 import './SearchParams.css'
+import SearchResults from './SearchResults'
 
 class SearchParams extends React.Component {
   constructor() {
@@ -48,53 +49,56 @@ class SearchParams extends React.Component {
       {key: 'Bluegrass', value: 'Bluegrass', text: 'Bluegrass'}
     ]
     return (
-      <Container>
-        <Form>
-          <label className="label-dropdown">Guitar Player</label>
-          <Dropdown
-            placeholder="Choose a guitar player"
-            fluid
-            search
-            selection
-            labeled
-            options={guitaristOptions}
-            className="dropdown"
-          />
+      <div>
+        <Container>
+          <Form>
+            <label className="label-dropdown">Guitar Player</label>
+            <Dropdown
+              placeholder="Choose a guitar player"
+              fluid
+              search
+              selection
+              labeled
+              options={guitaristOptions}
+              className="dropdown"
+            />
 
-          <label className="label-dropdown">Difficulty</label>
-          <Dropdown
-            labeled
-            placeholder="Choose a difficulty level"
-            fluid
-            selection
-            options={difficultyOptions}
-            className="dropdown"
-          />
+            <label className="label-dropdown">Difficulty</label>
+            <Dropdown
+              labeled
+              placeholder="Choose a difficulty level"
+              fluid
+              selection
+              options={difficultyOptions}
+              className="dropdown"
+            />
 
-          <label className="label-dropdown">Speed</label>
-          <Dropdown
-            labeled
-            placeholder="Choose a speed"
-            fluid
-            selection
-            options={speedOptions}
-            className="dropdown"
-          />
+            <label className="label-dropdown">Speed</label>
+            <Dropdown
+              labeled
+              placeholder="Choose a speed"
+              fluid
+              selection
+              options={speedOptions}
+              className="dropdown"
+            />
 
-          <label className="label-dropdown">Style</label>
-          <Dropdown
-            labeled
-            placeholder="Choose a style"
-            fluid
-            selection
-            options={styleOptions}
-            className="dropdown"
-          />
-          <Button inverted color="blue">
-            Find Solos
-          </Button>
-        </Form>
-      </Container>
+            <label className="label-dropdown">Style</label>
+            <Dropdown
+              labeled
+              placeholder="Choose a style"
+              fluid
+              selection
+              options={styleOptions}
+              className="dropdown"
+            />
+            <Button inverted color="blue">
+              Find Solos
+            </Button>
+          </Form>
+        </Container>
+        <SearchResults />
+      </div>
     )
   }
 }
