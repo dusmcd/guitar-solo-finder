@@ -6,13 +6,28 @@ import SearchResults from './SearchResults'
 import './SearchParams.css'
 
 class SearchParams extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      guitarist: '',
+      difficulty: '',
+      style: '',
+      speed: ''
+    }
+  }
   componentDidMount() {
     this.props.fetchGuitarists()
   }
   handleSubmit = event => {
     event.preventDefault()
-    this.props.querySongs()
+    this.props.querySongs(this.state)
     this.props.setView(true)
+  }
+  handleChange = (event, dataObj) => {
+    this.setState({
+      [dataObj.options[0].name]: dataObj.value
+    })
+    console.log('LOCAL STATE:', this.state)
   }
   generateGuitaristOptions(guitarists) {
     return guitarists.map(guitarist => {
@@ -20,27 +35,28 @@ class SearchParams extends React.Component {
         key: guitarist.id,
         value: guitarist.id,
         flag: guitarist.id,
-        text: guitarist.name
+        text: guitarist.name,
+        name: 'guitarist'
       }
     })
   }
   generateDifficultyOptions() {
     return [
-      {key: 'easy', value: 'easy', text: 'Easy'},
+      {key: 'easy', value: 'easy', text: 'Easy', name: 'difficulty'},
       {key: 'intermediate', value: 'intermediate', text: 'Intermediate'},
       {key: 'hard', value: 'hard', text: 'Hard'}
     ]
   }
   generateSpeedOptions() {
     return [
-      {key: 'slow', value: 'slow', text: 'Slow'},
+      {key: 'slow', value: 'slow', text: 'Slow', name: 'speed'},
       {key: 'medium', value: 'medium', text: 'Medium'},
       {key: 'fast', value: 'fast', text: 'Fast'}
     ]
   }
   generateStyleOptions() {
     return [
-      {key: 'bluesy', value: 'Bluesy', text: 'Bluesy'},
+      {key: 'bluesy', value: 'Bluesy', text: 'Bluesy', name: 'style'},
       {key: 'Heavy Metal', value: 'Heavy Metal', text: 'Heavy Metal'},
       {key: 'Jazz', value: 'Jazz', text: 'Jazz'},
       {key: 'Blues', value: 'Blues', text: 'Blues'},
@@ -69,6 +85,7 @@ class SearchParams extends React.Component {
               labeled
               options={guitaristOptions}
               className="dropdown"
+              onChange={this.handleChange}
             />
 
             <label className="label-dropdown">Difficulty</label>
@@ -79,6 +96,7 @@ class SearchParams extends React.Component {
               selection
               options={difficultyOptions}
               className="dropdown"
+              onChange={this.handleChange}
             />
 
             <label className="label-dropdown">Speed</label>
@@ -89,6 +107,7 @@ class SearchParams extends React.Component {
               selection
               options={speedOptions}
               className="dropdown"
+              onChange={this.handleChange}
             />
 
             <label className="label-dropdown">Style</label>
@@ -99,6 +118,7 @@ class SearchParams extends React.Component {
               selection
               options={styleOptions}
               className="dropdown"
+              onChange={this.handleChange}
             />
             <Button inverted color="blue">
               Find Solos

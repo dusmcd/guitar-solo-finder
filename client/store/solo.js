@@ -50,7 +50,7 @@ export const getGuitaristsThunk = () => {
 export const getSongsThunk = searchParams => {
   return dispatch => {
     dispatch(setFetchAction(true))
-    axios.get('/api/songs', searchParams).then(res => {
+    axios.post('/api/songs', searchParams).then(res => {
       dispatch(getSongsAction(res.data))
       dispatch(setFetchAction(false))
     })
