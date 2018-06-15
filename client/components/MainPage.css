@@ -1,8 +1,69 @@
-#banner {
-  margin: 0 auto;
-  width: 100%;
+#header {
+  color: white;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40vh;
 }
 
-.banner-img {
+.slideshow {
+  position: fixed;
+  height: 100%;
   width: 100%;
+  z-index: 0;
+  top: 95px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slideshow li {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 20s linear infinite;
+}
+
+.slideshow li:nth-child(1) {
+  background-image: url('/guitar-banner.jpeg');
+}
+.slideshow li:nth-child(2) {
+  background-image: url('/guitar-banner2.jpg');
+  animation-delay: 10s;
+}
+
+@keyframes imageAnimation {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  60% {
+    opacity: 0;
+  }
 }

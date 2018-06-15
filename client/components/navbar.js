@@ -3,13 +3,10 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../store'
 import './navbar.css'
-import SearchParams from './SearchParams'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="nav-bar">
     <h1>Guitar Solo Finder</h1>
-    <SearchParams />
-    <hr />
   </div>
 )
 

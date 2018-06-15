@@ -3,27 +3,23 @@ import {connect} from 'react-redux'
 import {Image, Container} from 'semantic-ui-react'
 import SearchResults from './SearchResults'
 import './MainPage.css'
+import SearchParams from './SearchParams'
 
-class MainPage extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      imageNumber: 1
-    }
-  }
-  render() {
-    const {results} = this.props
-    const image1 = 'guitar-banner.jpeg'
-    const image2 = 'guitar-banner2.jpg'
-    return (
-      <div>
-        <div id="banner">
-          <Image className="banner-img" src="/guitar-banner.jpeg" />
-        </div>
-        <Container>{results && <SearchResults />}</Container>
+const MainPage = props => {
+  const {results} = props
+  return (
+    <div>
+      <div id="header">
+        <h1>Looking for a great guitar solo?</h1>
+        <SearchParams />
       </div>
-    )
-  }
+      <ul className="slideshow">
+        <li />
+        <li />
+      </ul>
+      <Container>{results && <SearchResults />}</Container>
+    </div>
+  )
 }
 
 const mapState = state => {
