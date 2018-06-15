@@ -1,9 +1,11 @@
 const router = require('express').Router()
-const {Song} = require('../db/models')
+const {Song, Guitarist} = require('../db/models')
 
 router.post('/', (req, res, next) => {
   const queryObj = pullOutDefinedKeys(req.body)
-  Song.findAll(queryObj)
+  Song.findAll({
+    where: queryObj
+  })
     .then(songs => res.json(songs))
     .catch(err => next(err))
 })

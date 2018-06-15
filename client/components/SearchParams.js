@@ -9,7 +9,7 @@ class SearchParams extends React.Component {
   constructor() {
     super()
     this.state = {
-      guitarist: '',
+      guitaristId: '',
       difficulty: '',
       style: '',
       speed: ''
@@ -22,12 +22,17 @@ class SearchParams extends React.Component {
     event.preventDefault()
     this.props.querySongs(this.state)
     this.props.setView(true)
+    this.setState({
+      guitaristId: '',
+      difficulty: '',
+      style: '',
+      speed: ''
+    })
   }
   handleChange = (event, dataObj) => {
     this.setState({
       [dataObj.options[0].name]: dataObj.value
     })
-    console.log('LOCAL STATE:', this.state)
   }
   generateGuitaristOptions(guitarists) {
     return guitarists.map(guitarist => {
@@ -36,7 +41,7 @@ class SearchParams extends React.Component {
         value: guitarist.id,
         flag: guitarist.id,
         text: guitarist.name,
-        name: 'guitarist'
+        name: 'guitaristId'
       }
     })
   }
