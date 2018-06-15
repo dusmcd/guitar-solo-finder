@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getGuitaristsThunk, getSongsThunk, setViewAction} from '../store/solo'
 import {Button, Form, Dropdown, Container, Segment} from 'semantic-ui-react'
-import SearchResults from './SearchResults'
 import ModalWrapper from './ModalWrapper'
 import './SearchParams.css'
 
@@ -84,6 +83,7 @@ class SearchParams extends React.Component {
         <Container>
           <ModalWrapper triggerButton="Click to Search">
             <Form onSubmit={this.handleSubmit}>
+              <h3>Guitarist</h3>
               <Dropdown
                 placeholder="Choose a guitar player"
                 fluid
@@ -94,6 +94,8 @@ class SearchParams extends React.Component {
                 className="dropdown"
                 onChange={this.handleChange}
               />
+
+              <h3>Difficulty</h3>
               <Dropdown
                 labeled
                 placeholder="Choose a difficulty level"
@@ -104,7 +106,7 @@ class SearchParams extends React.Component {
                 onChange={this.handleChange}
               />
 
-              <label className="label-dropdown">Speed</label>
+              <h3>Speed</h3>
               <Dropdown
                 labeled
                 placeholder="Choose a speed"
@@ -115,7 +117,7 @@ class SearchParams extends React.Component {
                 onChange={this.handleChange}
               />
 
-              <label className="label-dropdown">Style</label>
+              <h3>Style</h3>
               <Dropdown
                 labeled
                 placeholder="Choose a style"
@@ -131,7 +133,6 @@ class SearchParams extends React.Component {
               </Button>
             </Form>
           </ModalWrapper>
-          {results && <SearchResults />}
         </Container>
       </div>
     )
@@ -141,8 +142,7 @@ class SearchParams extends React.Component {
 const mapState = state => {
   return {
     guitarists: state.solo.guitarists,
-    isFetching: state.solo.isFetching,
-    results: state.solo.results
+    isFetching: state.solo.isFetching
   }
 }
 const mapDispatch = dispatch => {

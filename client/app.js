@@ -1,13 +1,13 @@
 import React from 'react'
 
-// import {Navbar} from './components'
+import {Navbar, MainPage} from './components'
 // import Routes from './routes'
-import {SearchParams} from './components'
 
 const App = () => {
   return (
     <div>
-      <SearchParams />
+      <Navbar />
+      <MainPage />
     </div>
   )
 }
