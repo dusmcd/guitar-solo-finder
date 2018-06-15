@@ -1,15 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getGuitaristsThunk, getSongsThunk, setViewAction} from '../store/solo'
-import {
-  Button,
-  Form,
-  Dropdown,
-  Container,
-  Segment,
-  Modal
-} from 'semantic-ui-react'
+import {Button, Form, Dropdown, Container, Segment} from 'semantic-ui-react'
 import SearchResults from './SearchResults'
+import ModalWrapper from './ModalWrapper'
 import './SearchParams.css'
 
 class SearchParams extends React.Component {
@@ -88,61 +82,55 @@ class SearchParams extends React.Component {
     return (
       <div>
         <Container>
-          <Modal trigger={<Button primary>Click to Search</Button>}>
-            <Modal.Header>
-              Search Using Menus Below (all fields are optional)
-            </Modal.Header>
-            <Modal.Content>
-              <Form onSubmit={this.handleSubmit}>
-                <Dropdown
-                  placeholder="Choose a guitar player"
-                  fluid
-                  search
-                  selection
-                  labeled
-                  options={guitaristOptions}
-                  className="dropdown"
-                  onChange={this.handleChange}
-                />
+          <ModalWrapper triggerButton="Click to Search">
+            <Form onSubmit={this.handleSubmit}>
+              <Dropdown
+                placeholder="Choose a guitar player"
+                fluid
+                search
+                selection
+                labeled
+                options={guitaristOptions}
+                className="dropdown"
+                onChange={this.handleChange}
+              />
+              <Dropdown
+                labeled
+                placeholder="Choose a difficulty level"
+                fluid
+                selection
+                options={difficultyOptions}
+                className="dropdown"
+                onChange={this.handleChange}
+              />
 
-                <label className="label-dropdown">Difficulty</label>
-                <Dropdown
-                  labeled
-                  placeholder="Choose a difficulty level"
-                  fluid
-                  selection
-                  options={difficultyOptions}
-                  className="dropdown"
-                  onChange={this.handleChange}
-                />
+              <label className="label-dropdown">Speed</label>
+              <Dropdown
+                labeled
+                placeholder="Choose a speed"
+                fluid
+                selection
+                options={speedOptions}
+                className="dropdown"
+                onChange={this.handleChange}
+              />
 
-                <label className="label-dropdown">Speed</label>
-                <Dropdown
-                  labeled
-                  placeholder="Choose a speed"
-                  fluid
-                  selection
-                  options={speedOptions}
-                  className="dropdown"
-                  onChange={this.handleChange}
-                />
+              <label className="label-dropdown">Style</label>
+              <Dropdown
+                labeled
+                placeholder="Choose a style"
+                fluid
+                selection
+                options={styleOptions}
+                className="dropdown"
+                onChange={this.handleChange}
+              />
 
-                <label className="label-dropdown">Style</label>
-                <Dropdown
-                  labeled
-                  placeholder="Choose a style"
-                  fluid
-                  selection
-                  options={styleOptions}
-                  className="dropdown"
-                  onChange={this.handleChange}
-                />
-                <Button inverted color="blue">
-                  Find Solos
-                </Button>
-              </Form>
-            </Modal.Content>
-          </Modal>
+              <Button basic color="orange">
+                Find Solos
+              </Button>
+            </Form>
+          </ModalWrapper>
           {results && <SearchResults />}
         </Container>
       </div>
