@@ -4,15 +4,17 @@ import {Segment} from 'semantic-ui-react'
 import './Video.css'
 
 const Video = props => {
-  const {videoUrl} = props
+  const {song} = props
+  const {videoUrl} = song
   const videoId = videoUrl.substr(videoUrl.search('=') + 1)
   return (
-    <Segment className="artist-info">
+    <Segment className="video-card" style={{backgroundColor: 'black'}}>
       <YouTube videoId={videoId} opts={{height: '390', width: '600'}} />
-      <div>
-        <h3>Guitarist Name</h3>
-        <h3>Band</h3>
-        <h3>Guitar</h3>
+      <div className="artist-info">
+        <h3>{song.guitarist.name}</h3>
+        <h3>"{song.name}"</h3>
+        <h3>{song.guitarist.band.name}</h3>
+        <h3>{song.guitarist.guitar}</h3>
       </div>
     </Segment>
   )

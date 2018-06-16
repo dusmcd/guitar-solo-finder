@@ -1,4 +1,9 @@
-.artist-info {
+.video-card {
   display: flex;
   justify-content: space-around;
+  color: white;
+}
+
+.artist-info h3 {
+  font-family: 'Abel', sans-serif;
 }

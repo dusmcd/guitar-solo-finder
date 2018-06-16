@@ -1,10 +1,11 @@
 const router = require('express').Router()
-const {Song, Guitarist} = require('../db/models')
+const {Song, Guitarist, Band} = require('../db/models')
 
 router.post('/', (req, res, next) => {
   const queryObj = pullOutDefinedKeys(req.body)
   Song.findAll({
-    where: queryObj
+    where: queryObj,
+    include: [{model: Guitarist, include: [Band]}]
   })
     .then(songs => res.json(songs))
     .catch(err => next(err))
