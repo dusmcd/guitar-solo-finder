@@ -2,11 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../store'
+import {Icon} from 'semantic-ui-react'
 import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="nav-bar">
     <h1>Guitar Solo Finder</h1>
+    <Icon inverted size="big" color="orange" name="music" />
   </div>
 )
 

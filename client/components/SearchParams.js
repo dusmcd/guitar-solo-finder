@@ -81,7 +81,7 @@ class SearchParams extends React.Component {
     return (
       <div>
         <Container>
-          <ModalWrapper triggerButton="Click to Search">
+          <ModalWrapper triggerButton="Search">
             <Form onSubmit={this.handleSubmit}>
               <h3>Guitarist</h3>
               <Dropdown
