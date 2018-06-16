@@ -1,9 +1,11 @@
 #header {
-  color: white;
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 40vh;
+  margin: 40vh;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .slideshow {
@@ -31,15 +33,27 @@
   background-repeat: no-repeat;
   opacity: 0;
   z-index: 0;
-  animation: imageAnimation 20s linear infinite;
+  animation: imageAnimation 40s linear infinite;
 }
 
 .slideshow li:nth-child(1) {
   background-image: url('/guitar-banner.jpeg');
 }
 .slideshow li:nth-child(2) {
-  background-image: url('/guitar-banner2.jpg');
-  animation-delay: 10s;
+  background-image: url('/guitar-banner2.jpeg');
+  animation-delay: 8s;
+}
+.slideshow li:nth-child(3) {
+  background-image: url('/guitar-banner3.jpg');
+  animation-delay: 16s;
+}
+.slideshow li:nth-child(4) {
+  background-image: url('/guitar-banner4.jpeg');
+  animation-delay: 24s;
+}
+.slideshow li:nth-child(5) {
+  background-image: url('/guitar-banner5.jpeg');
+  animation-delay: 32s;
 }
 
 @keyframes imageAnimation {
@@ -52,18 +66,9 @@
   }
   20% {
     opacity: 1;
-  }
-  30% {
-    opacity: 1;
-  }
-  40% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
     animation-timing-function: ease-out;
   }
-  60% {
+  30% {
     opacity: 0;
   }
 }

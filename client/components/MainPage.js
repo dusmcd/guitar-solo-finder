@@ -16,6 +16,9 @@ const MainPage = props => {
       <ul className="slideshow">
         <li />
         <li />
+        <li />
+        <li />
+        <li />
       </ul>
       <Container>{results && <SearchResults />}</Container>
     </div>
