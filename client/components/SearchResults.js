@@ -13,11 +13,7 @@ class SearchResults extends React.Component {
     return (
       <Container>
         {songs.map(song => {
-          return (
-            <Segment key={song.id}>
-              <Video videoUrl={song.videoUrl} />
-            </Segment>
-          )
+          return <Video key={song.id} videoUrl={song.videoUrl} />
         })}
       </Container>
     )
